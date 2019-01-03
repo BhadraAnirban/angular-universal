@@ -2,26 +2,79 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
 
-## Development server
+## Install dependencies
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+npm install --save @angular/platform-server @nguniversal/module-map-ngfactory-loader ts-loader
 
-## Code scaffolding
+## Add Universal support to your app
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Make your AppModule compatible with Universal by adding .withServerTransition() and an application ID to your BrowserModule import in src/app/app.module.ts
 
-## Build
+Here's an example in src/app/app.module.ts.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Create a server root module
 
-## Running unit tests
+Create a module named AppServerModule to act as the root module when running on the server. This example places it alongside app.module.ts in a file named app.server.module.ts. The new module imports everything from the root AppModule, and adds ServerModule. It also adds ModuleMapLoaderModule to help make lazy-loaded routes possible during server-side renders with the Angular CLI.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Here's an example in src/app/app.server.module.ts.
 
-## Running end-to-end tests
+## Create a main file to export AppServerModule
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Create a main file for your Universal bundle in the app src/ folder to export your AppServerModule instance. This example calls the file main.server.ts.
 
-## Further help
+### export { AppServerModule } from './app/app.server.module';
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Set up a server to run Universal bundles
+
+At the root level of your project, next to package.json, create a file named server.ts and add the following content present in src/app/app.server.module.ts..
+
+In the server.ts example 'universal' is the my-project-name. Update it with your project name
+
+## Web Pack settings to run the app on the server
+
+Set up a webpack configuration to handle the Node Express server.ts file and serve your application.
+In your app root directory, create a webpack configuration file (webpack.server.config.js) that compiles the server.ts file and its dependencies into dist/server.js.
+
+Here's (in the project file structure) an example of webpack.server.config.js.
+
+## Create a new build target and build the bundle 
+
+Open the Angular configuration file, angular.json, for your project, and add a new target in the "architect" section for the server build. The following example names the new target "server".
+"architect": {
+  "build": { ... }
+    "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/server",
+            "main": "src/main.server.ts",
+            "tsConfig": "src/tsconfig.server.json"
+          }
+    }
+    ...
+}
+......
+"defaultProject": "universal" -- Already generated and this is the my-project-name
+
+## Creating scripts
+
+Now let's create a few handy scripts to help us do all of this in the future. You can add these in the script of package.json.
+
+"scripts": {
+      // Common scripts
+      "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
+      "serve:ssr": "node dist/server.js",
+
+      // Helpers for the scripts
+      "build:client-and-server-bundles": "ng build --prod && ng build --prod --app 1 --output-hashing=false",
+      "webpack:server": "webpack --config webpack.server.config.js --progress --colors"
+    }
+
+
+
+### ng run <my-project-name>:server
+
+## npm run build:ssr && npm run serve:ssr
+
+
+
+
