@@ -69,7 +69,11 @@ Now let's create a few handy scripts to help us do all of this in the future. Yo
       "webpack:server": "webpack --config webpack.server.config.js --progress --colors"
     }
 
+#### You may need to rectify to -
+"build:client-and-server-bundles": "ng build --prod && ng build --prod --output-hashing=none",
+    "webpack:server": "webpack --config webpack.server.config.js --progress --colors"
 
+## Execute in node terminal
 
 ### ng run <my-project-name>:server
 
