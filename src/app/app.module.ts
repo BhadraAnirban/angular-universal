@@ -3,13 +3,15 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { PmkjComponent } from './pmkj/pmkj.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PmkjComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({appId: 'my-app'}),
     AppRoutingModule
   ],
   providers: [],
