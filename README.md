@@ -89,7 +89,7 @@ PM2 is a production process manager for Node.js applications with a built-in loa
 ### sudo npm install –g  pm2
 ### pm2 start dist/server.js --name=ani_universal
 
-Application is ready to access from http://localhost:4400 (as per the port number, mentioned in server.ts)
+Application is ready to access from http://localhost:4426 (as per the port number, mentioned in server.ts)
 
 
 
