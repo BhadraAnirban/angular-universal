@@ -37,6 +37,8 @@ In your app root directory, create a webpack configuration file (webpack.server.
 
 Here's (in the project file structure) an example of webpack.server.config.js.
 
+### Don't forget to mention the mode as 'development' in the webpack.server.config.js.
+
 ## Create a new build target and build the bundle 
 
 Open the Angular configuration file, angular.json, for your project, and add a new target in the "architect" section for the server build. The following example names the new target "server".
@@ -69,8 +71,8 @@ Now let's create a few handy scripts to help us do all of this in the future. Yo
       "webpack:server": "webpack --config webpack.server.config.js --progress --colors"
     }
 
-#### You may need to rectify to -
-"build:client-and-server-bundles": "ng build --prod && ng build --prod --output-hashing=none",
+### You may need to rectify tthe above script to make it work -
+"build:client-and-server-bundles": "ng build --prod && ng build --prod --output-hashing=all",
     "webpack:server": "webpack --config webpack.server.config.js --progress --colors"
 
 ## Execute in node terminal
@@ -78,6 +80,16 @@ Now let's create a few handy scripts to help us do all of this in the future. Yo
 ### ng run <my-project-name>:server
 
 ## npm run build:ssr && npm run serve:ssr
+
+
+## pm2 setup for server
+
+PM2 is a production process manager for Node.js applications with a built-in load balancer. It allows you to keep applications alive forever.
+
+### sudo npm install –g  pm2
+### pm2 start dist/server.js --name=ani_universal
+
+Application is ready to access from http://localhost:4400 (as per the port number, mentioned in server.ts)
 
 
 

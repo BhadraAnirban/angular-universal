@@ -16,6 +16,7 @@ module.exports = {
       { test: /\.ts$/, loader: 'ts-loader' }
     ]
   },
+  mode: 'development',
   plugins: [
     // Temporary Fix for issue: https://github.com/angular/angular/issues/11580
     // for "WARNING Critical dependency: the request of a dependency is an expression"
