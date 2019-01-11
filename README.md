@@ -26,7 +26,7 @@ Create a main file for your Universal bundle in the app src/ folder to export yo
 
 ## Set up a server to run Universal bundles -
 
-At the root level of your project, next to package.json, create a file named server.ts and add the following content present in src/app/app.server.module.ts..
+At the root level of your project, next to package.json, create a file named server.ts and add the content present in server.ts of this project.
 
 In the server.ts example 'universal' is the my-project-name. Update it with your project name
 
@@ -82,7 +82,7 @@ Now let's create a few handy scripts to help us do all of this in the future. Yo
 ### npm run build:ssr && npm run serve:ssr
 
 
-## pm2 setup for the server - 
+## pm2 setup for the server -
 
 PM2 is a production process manager for Node.js applications with a built-in load balancer. It allows you to keep applications alive forever.
 
