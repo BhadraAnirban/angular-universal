@@ -50,7 +50,7 @@ Add a section for "angularCompilerOptions" and set "entryModule" to point to you
         "entryModule": "app/app.server.module#AppServerModule"
       }
   }
-  
+
 
 ## Set up a server to run Universal bundles -
 
@@ -106,7 +106,9 @@ Now let's create a few handy scripts to help us do all of this in the future. Yo
 
 ## Execute in the node terminal -
 
-### ng run <my-project-name>:server
+### ng run my-project-name:server
+In this solution the my-project-name is universal. So it will be
+ng run universal:server
 
 ### npm run build:ssr && npm run serve:ssr
 
