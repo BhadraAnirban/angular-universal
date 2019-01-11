@@ -5,6 +5,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Install dependencies -
 
 npm install --save @angular/platform-server @nguniversal/module-map-ngfactory-loader ts-loader
+npm install --save @nguniversal/express-engine
+npm install --save @angular/http
+npm install -D webpack-cli
 
 ## Add Universal support to your app -
 
@@ -24,11 +27,37 @@ Create a main file for your Universal bundle in the app src/ folder to export yo
 
 ### export { AppServerModule } from './app/app.server.module';
 
+## Create a configuration file for AppServerModule
+
+Copy tsconfig.app.json to tsconfig.server.json and modify it as follows:
+
+In "compilerOptions", set the "module" target to "commonjs".
+Add a section for "angularCompilerOptions" and set "entryModule" to point to your AppServerModule instance. Use the format importPath#symbolName. In this example, the entry module is app/app.server.module#AppServerModule.
+
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+      "outDir": "../out-tsc/app",
+        "baseUrl": "./",
+        "module": "commonjs",
+        "types": []
+    },
+    "exclude": [
+      "test.ts",
+      "**/*.spec.ts"
+    ],
+    "angularCompilerOptions": {
+        "entryModule": "app/app.server.module#AppServerModule"
+      }
+  }
+  
+
 ## Set up a server to run Universal bundles -
 
 At the root level of your project, next to package.json, create a file named server.ts and add the content present in server.ts of this project.
 
 In the server.ts example 'universal' is the my-project-name. Update it with your project name
+
 
 ## Web Pack settings to run the app on the server -
 
