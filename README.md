@@ -30,6 +30,28 @@ At the root level of your project, next to package.json, create a file named ser
 
 In the server.ts example 'universal' is the my-project-name. Update it with your project name
 
+## Add “AngularCompilerOptions” with the AppServerModule as the EntryModule-
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+      "outDir": "../out-tsc/app",
+      "baseUrl": "./",
+      // Set the module format to "commonjs":
+      "module": "commonjs",
+      "types": []
+    },
+    "exclude": [
+      "test.ts",
+      "**/*.spec.ts"
+    ],
+    // Add "angularCompilerOptions" with the AppServerModule you wrote
+    // set as the "entryModule".
+    "angularCompilerOptions": {
+      "entryModule": "app/app.server.module#AppServerModule"
+    }
+}
+
+
 ## Web Pack settings to run the app on the server -
 
 Set up a webpack configuration to handle the Node Express server.ts file and serve your application.
@@ -77,7 +99,7 @@ Now let's create a few handy scripts to help us do all of this in the future. Yo
 
 ## Execute in the node terminal -
 
-### ng run <my-project-name>:server
+### ng run my-project-name:server
 
 ### npm run build:ssr && npm run serve:ssr
 
